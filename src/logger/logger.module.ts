@@ -23,7 +23,15 @@ import LokiTransport from 'winston-loki';
             host: process.env.LOKI_INTERNAL_URL || 'http://localhost:3100',
             labels: { app: 'simple-deploy-railway' },
             json: true,
-            format: winston.format.json(),
+            format: winston.format.combine(
+              winston.format.timestamp(),
+              winston.format.colorize(),
+              winston.format.printf(
+                ({ level, message, timestamp, context }) =>
+                  // eslint-disable-next-line @typescript-eslint/no-base-to-string, @typescript-eslint/restrict-template-expressions
+                  `${timestamp} [${context || 'Application'}] ${level}: ${message}`,
+              ),
+            ),
             replaceTimestamp: true,
             onConnectionError: (err) => console.error(err),
           }),
