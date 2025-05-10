@@ -34,4 +34,9 @@ export class AppController {
 
     return fibonacci(n);
   }
+
+  @Get('/health')
+  healthCheck(): { status: string } {
+    return { status: 'ok' };
+  }
 }
