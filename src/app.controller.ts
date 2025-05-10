@@ -21,6 +21,7 @@ export class AppController {
   @Get('/hello')
   getHello(): string {
     this.logger.log('hello endpoint called', 'AppController');
+    this.logger.warn('hello endpoint called', 'AppController');
     return this.appService.getHello();
   }
 
