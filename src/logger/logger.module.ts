@@ -20,7 +20,7 @@ import LokiTransport from 'winston-loki';
             ),
           }),
           new LokiTransport({
-            host: process.env.LOKI_HOST || 'http://localhost:3100',
+            host: process.env.LOKI_INTERNAL_URL || 'http://localhost:3100',
             labels: { app: 'simple-deploy-railway' },
             json: true,
             format: winston.format.json(),
