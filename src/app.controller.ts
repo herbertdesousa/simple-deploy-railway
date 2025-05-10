@@ -35,6 +35,18 @@ export class AppController {
     return fibonacci(n);
   }
 
+  @Get('/memory-test/:size')
+  memoryTest(@Param('size') size: string): string {
+    const mb = parseInt(size, 10);
+    if (isNaN(mb) || mb <= 0) {
+      throw new BadRequestException('Invalid size provided');
+    }
+
+    const buffer = new Array(mb * 1024 * 1024).fill('A');
+    console.log(`Allocated ${mb} MB of memory`);
+    return `Allocated ${mb} MB of memory for testing purposes`;
+  }
+
   @Get('/health')
   healthCheck(): { status: string } {
     return { status: 'ok' };
